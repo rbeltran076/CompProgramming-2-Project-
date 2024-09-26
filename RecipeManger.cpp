@@ -10,6 +10,7 @@
 
 using json = nlohmann::json; //to use this library, you must update c++ with: 
 //g++ -std=c++11 RecipeManger.cpp -o RecipeManger
+//then run: ./RecipeManger
 //VERY IMPORTANT (see above)
 
 using namespace std;
@@ -49,7 +50,9 @@ class Ingredient {
         //isLowQuantity() will print a "notification" if the quantity of an ingredient is running low
         //function will be called when -1 < quantity < 2
         void isLowQuantity() const {
-            cout << "The quantity of " << name << " is running low!";
+            if (quantity > -1 && quantity < 2){
+                cout << "The quantity of " << name << " is running low!\n";
+            }
         }
 
 
@@ -92,6 +95,7 @@ class Recipe {
 
     return true;
 }
+};
 
 //Function to load recipes from a JSON file
 //I had no idea how to do this. Thank you Chat:
@@ -121,8 +125,53 @@ vector<Recipe> loadRecipesFromJSON(const string& filename) {
     return recipes;
 } //end of chatgpt generated section
 
+//I also used Chat for this to verify that my code works thus far:
+int main() {
+    vector<Ingredient> userIngredients;  // Stores user's ingredients
+    vector<Recipe> recipes;              // Stores all the recipes
+    string filename = "recipes.json";    // JSON file containing the recipes
 
+    // Load recipes from the JSON file
+    recipes = loadRecipesFromJSON(filename);
 
+    // User inputs ingredients until they type "done"
+    while (true) {
+        Ingredient newIngredient;  // This will prompt the user for input
+        if (newIngredient.getName() == "done") {
+            break;  // Stop when the user types "done"
+        }
+        userIngredients.push_back(newIngredient);
+    }
 
-};
+    for (const auto& ingredient : userIngredients) {
+    ingredient.isLowQuantity();  // Notify if the ingredient is running low
+    }
 
+    // Check which recipes the user can make
+    vector<string> possibleRecipes;
+    for (const auto& recipe : recipes) {
+        if (recipe.canMakeRecipe(userIngredients)) {
+            possibleRecipes.push_back(recipe.getRecipeName());
+        }
+    }
+
+    // Print out possible recipes
+    if (possibleRecipes.empty()) {
+        cout << "Sorry, you cannot make any recipes with the ingredients you have." << endl;
+    } else {
+        cout << "Based on your ingredients, you can make the following recipes:" << endl;
+        for (const auto& recipeName : possibleRecipes) {
+            cout << "- " << recipeName << endl;
+        }
+    }
+
+    return 0; 
+} ;
+
+//improvements:
+//error handeling if the user enters an ingredient not in the json
+//update json with more recipes
+//update json with more info about the recipes (instructions, time to fulfill)
+//UI for users to input data
+//test cases 
+//write chatgpt generated code ourselves?
