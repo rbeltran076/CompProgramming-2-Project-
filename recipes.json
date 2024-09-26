@@ -1,0 +1,29 @@
+{
+    "recipes": [
+      {
+        "name": "Pancakes",
+        "ingredients": {
+          "flour": 2,
+          "egg": 1,
+          "milk": 1
+        }
+      },
+      {
+        "name": "Omelette",
+        "ingredients": {
+          "egg": 2,
+          "cheese": 1,
+          "salt": 1
+        }
+      },
+      {
+        "name": "Spaghetti",
+        "ingredients": {
+          "spaghetti": 1,
+          "tomato sauce": 2,
+          "meat": 1
+        }
+      }
+    ]
+  }
+  
