@@ -1,0 +1,13 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "C/C++ Runner: Debug Session",
+      "type": "lldb",
+      "request": "launch",
+      "args": [],
+      "cwd": "/Users/inds/Downloads/L7/01-UsingGDBForDebugging",
+      "program": "/Users/inds/Downloads/L7/01-UsingGDBForDebugging/build/Debug/outDebug"
+    }
+  ]
+}
