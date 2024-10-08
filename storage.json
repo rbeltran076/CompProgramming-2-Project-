@@ -1,0 +1,18 @@
+{
+    "Fridge": [
+        {
+            "name": "milk",
+            "quantity": 3
+        },
+        {
+            "name": "egg",
+            "quantity": 3
+        }
+    ],
+    "Pantry": [
+        {
+            "name": "bread",
+            "quantity": 3
+        }
+    ]
+}
