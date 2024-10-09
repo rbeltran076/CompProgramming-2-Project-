@@ -1,9 +1,11 @@
+// the function acctually shows recipes.
 #include <iostream>
 #include <vector>
 #include <string>
 #include "json.hpp"
 #include <fstream>
 #include <ctime> // for date functionality
+#include <algorithm>
 
 using json = nlohmann::json;
 
@@ -309,53 +311,61 @@ public:
         }
     }
 
-    void matchRecipes() {
-        std::string recipeType;
-        std::cout << "Do you want a (S)weet or (Sa)vory recipe? ";
-        std::cin >> recipeType;
+   void matchRecipes() {
+    std::string recipeType;
+    std::cout << "Do you want a (S)weet or (Sa)vory recipe? ";
+    std::cin >> recipeType;
 
-        std::vector<Ingredient> allIngredients = fridge.getIngredients();
-        allIngredients.insert(allIngredients.end(), pantry.getIngredients().begin(), pantry.getIngredients().end());
+    // Convert the recipeType input to lowercase
+    std::transform(recipeType.begin(), recipeType.end(), recipeType.begin(), ::tolower);
 
-        std::vector<std::string> possibleRecipes;
-        std::vector<const Recipe*> matchingRecipes;
+    std::vector<Ingredient> allIngredients = fridge.getIngredients();
+    allIngredients.insert(allIngredients.end(), pantry.getIngredients().begin(), pantry.getIngredients().end());
 
-        for (const auto& recipe : recipes) {
-            if ((recipeType == "S" && recipe.getType() == "sweet") || (recipeType == "Sa" && recipe.getType() == "savory")) {
-                std::vector<std::string> missingIngredients;
-                if (recipe.canMakeRecipe(allIngredients, missingIngredients)) {
-                    possibleRecipes.push_back(recipe.getRecipeName());
-                    matchingRecipes.push_back(&recipe);
-                } else if (!missingIngredients.empty()) {
-                    std::cout << "You are missing the following ingredients for " << recipe.getRecipeName() << ": ";
-                    for (const auto& ingredient : missingIngredients) {
-                        std::cout << ingredient << " ";
-                    }
-                    std::cout << "\n";
+    std::vector<std::string> possibleRecipes;
+    std::vector<const Recipe*> matchingRecipes;
+
+    for (const auto& recipe : recipes) {
+        // Convert recipe category to lowercase to ensure case-insensitive comparison
+        std::string category = recipe.getType();
+        std::transform(category.begin(), category.end(), category.begin(), ::tolower);
+
+        // Check if the recipe matches the desired type (sweet or savory)
+        if ((recipeType == "s" && category == "sweet") || (recipeType == "sa" && category == "savory")) {
+            std::vector<std::string> missingIngredients;
+            if (recipe.canMakeRecipe(allIngredients, missingIngredients)) {
+                possibleRecipes.push_back(recipe.getRecipeName());
+                matchingRecipes.push_back(&recipe);
+            } else if (!missingIngredients.empty()) {
+                std::cout << "You are missing the following ingredients for " << recipe.getRecipeName() << ": ";
+                for (const auto& ingredient : missingIngredients) {
+                    std::cout << ingredient << " ";
                 }
-            }
-        }
-
-        if (possibleRecipes.empty()) {
-            std::cout << "Sorry, you cannot make any recipes with the ingredients you have.\n";
-        } else {
-            std::cout << "Based on your ingredients, you can make the following recipes:\n";
-            for (size_t i = 0; i < possibleRecipes.size(); ++i) {
-                std::cout << i + 1 << ". " << possibleRecipes[i] << "\n";
-            }
-
-            int choice;
-            std::cout << "Enter the number of the recipe you want to see in full: ";
-            std::cin >> choice;
-
-            if (choice > 0 && choice <= matchingRecipes.size()) {
-                displayFullRecipe(*matchingRecipes[choice - 1]);
-                saveHistory(*matchingRecipes[choice - 1]);
-            } else {
-                std::cout << "Invalid choice.\n";
+                std::cout << "\n";
             }
         }
     }
+
+    if (possibleRecipes.empty()) {
+        std::cout << "Sorry, you cannot make any recipes with the ingredients you have.\n";
+    } else {
+        std::cout << "Based on your ingredients, you can make the following recipes:\n";
+        for (size_t i = 0; i < possibleRecipes.size(); ++i) {
+            std::cout << i + 1 << ". " << possibleRecipes[i] << "\n";
+        }
+
+        int choice;
+        std::cout << "Enter the number of the recipe you want to see in full: ";
+        std::cin >> choice;
+
+        if (choice > 0 && choice <= matchingRecipes.size()) {
+            displayFullRecipe(*matchingRecipes[choice - 1]);
+            saveHistory(*matchingRecipes[choice - 1]);
+        } else {
+            std::cout << "Invalid choice.\n";
+        }
+    }
+}
 
     void displayFullRecipe(const Recipe& recipe) {
         std::cout << "Recipe: " << recipe.getRecipeName() << "\n";
