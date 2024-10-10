@@ -1,121 +1,135 @@
 # CompProgramming-2-Project-
 
-Here’s a detailed structure for your README file, tailored to fit your Competitive Programming 2 project. This structure includes best practices and elements to ensure clarity and completeness, based on your project scope and evaluation criteria.
-
----
-
-# **Project Title**
-
-## **Table of Contents**
+## Table of Contents
 1. [Project Description](#project-description)
 2. [Features](#features)
-3. [Problem Scope and Definition](#problem-scope-and-definition)
-4. [Software Engineering Strategy](#software-engineering-strategy)
-5. [Installation and Setup](#installation-and-setup)
-6. [Usage](#usage)
-7. [Code Structure](#code-structure)
-8. [Memory Management](#memory-management)
-9. [Error Handling](#error-handling)
-10. [Optimization Techniques](#optimization-techniques)
-11. [Testing](#testing)
-12. [Version Control](#version-control)
-13. [Future Enhancements](#future-enhancements)
-14. [Contributors](#contributors)
-15. [License](#license)
+3. [Installation and Setup](#installation-and-setup)
+4. [Usage](#usage)
+5. [Code Structure](#code-structure)
+6. [Memory Management](#memory-management)
+7. [Error Handling](#error-handling)
+8. [Testing](#testing)
+9. [Version Control](#version-control)
+10. [Future Enhancements](#future-enhancements)
+11. [Contributors](#contributors)
 
 ---
 
-### **1. Project Description**
+### Project Description
 
-A brief overview of your project:
-- What problem is it solving?
-- What does your program do?
-- Technologies used (e.g., C++, OpenMP for parallelization, JSON).
+The Recipe Manager is a C++ program created to handle kitchen ingredients, recommend recipes according to available ingredients, and keep track of recipe history. Users have the ability to input items into their fridge and pantry, access recipes that can be made with those ingredients, and come up with meal suggestions depending on what items they have. The program uses file handling in C++ to store and load ingredients and recipes in JSON files effectively. This system also monitors the expiration dates of ingredients and notifies users when ingredients are close to running out or expiring.
 
 ---
 
-### **2. Features**
+### Features
 
-Highlight key functionalities:
-- Recipe management (loading, adding, deleting, and displaying recipes).
-- Parallel processing using OpenMP.
-- Efficient file handling with JSON for storing recipes.
+The main features of our program consist of:
+
+- **Management of Ingredients:** the program keeps track of ingredients stored in either the fridge or the pantry, it monitors their quantities, and remembers expiration dates for perishable items.
+
+- **Recipe Suggestions:** the program also provides a way to recommend recipes utilizing the ingredients on hand, while notifying about any missing ingredients if a recipe is chosen by the user.
+
+- **JSON-based storage:** To retrieve and store ingredient and recipe information, the program loads and saves these items in JSON format, facilitating access and making it easy to expand if the ingredients saved are a huge number.
+
+- **Ingredient Expiry Notifications:** Notifications will be sent when ingredients in the fridge are about to expire.
+
+- **Low-Stock Notifications:** The pantry keeps track of ingredient quantities and alerts the users when supplies are running low.
+
+- **Recipe History:** This feature adds previously made recipes by the users, and stores them with a access date to indicate the date the recipe was made.
+
+
+---
+
+### Installation and Setup
+
+To install and run the Recipe Manager locally:
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/ayayasminebelloum/CompProgramming-2-Project.git
+   ```
+2. Navigate to the project directory:
+   ```bash
+   cd CompProgramming-2-Project
+   ```
+3. Compile the program using the provided `finalcode.cpp`:
+   ```bash
+   g++ -std=c++11 finalcode.cpp -o finalcode
+   ```
+4. Ensure that the required JSON files (`storage.json`, `recipes.json`, and `history.json`) are in the same directory as the executable.
+5. Run the program:
+   ```bash
+   ./finalcode
+   ```
+
+---
+
+### Usage
+
+The Recipe Manager functions through a command-line interface. When starting, users have the ability to carry out the subsequent actions:
+
+1. **Add Ingredients:** Includes fresh ingredients in the refrigerator or cupboard, indicating the amount and expiry date (for items that spoil).
+
+2. **Generate Recipes:** Using the ingredients on hand, the system will propose potential recipes and alert users about any ingredients they may be missing.
+
+3. **View History:** Show a roster of cooked recipes along with the corresponding preparation date.
+
+4. **Notification:** Monitor for ingredients nearing expiry or low in stock.
+
+Sample interaction when the program is ran (main menu):
+```bash
+What would you like to do?
+1. Add ingredients
+2. Generate recipes
+3. View recipe history
+4. Check notifications (expiring soon and running low)
+5. Exit
+```
+
+---
+
+### Code Structure
+
+- **`finalcode.cpp`:** The main file that contains the classes `Ingredient`, `Storage`, `Fridge`, `Pantry`, `Recipe`, and `RecipeManager`. These classes manage the functionality of ingredient tracking, recipe matching, and user interaction.
+- **`storage.json`:** Stores the current ingredients in the fridge and pantry, along with their quantities and expiration dates for perishable items.
+- **`recipes.json`:** Contains a list of recipes, including ingredients, condiments, and steps for preparation.
+- **`history.json`:** Tracks the recipes that have been made, along with the date of preparation.
+
+---
+
+### Memory Management
+
+The Recipe Manager efficiently manages memory by utilizing contemporary C++ techniques like dynamic memory allocation, references, and pointers. Here is a summary of memory management:
+
+#### **Use of References**
+- **Function Parameters:** The code efficiently passes objects without making copies by using references. In the `addIngredient` function, the `ingredient` is passed by reference in order to prevent the need to copy large objects, as an example.
+   ```cpp
+   void addIngredient(const Ingredient& ingredient);
+   ```
+   This guarantees that only a pointer to the object is transferred, decreasing memory consumption and enhancing efficiency.
   
----
+- **Data Access:** Functions like `getIngredients()` that return large objects such as vectors use `const` references to avoid extra copying:
+   ```cpp
+   const std::vector<Ingredient>& getIngredients() const;
+   ```
+   This enables effective access to the data in a read-only manner without generating duplicates.
 
-### **3. Problem Scope and Definition**
-
-Clearly explain the problem the project solves:
-- The scope of the project (recipe manager for efficient handling and organization of cooking recipes).
-- The solution approach (object-oriented design, optimized for handling data in parallel).
-
----
-
-### **4. Software Engineering Strategy**
-
-Outline your software engineering approach:
-- **Modularity:** Describe how the functionality is divided into modules (e.g., Recipe class, FileManager class, ParallelProcessing module).
-- **Compilation Strategy:** Describe how the project is compiled and linked (mentioning g++ or other compilers).
-- **Version Control:** Specify how GitHub was used for version control (branches, commits, pull requests).
+#### **Use of Pointers**
+- **Dynamic Allocation:** Even though direct raw pointers are not used in the code for allocating dynamic memory, the utilization of STL containers like `std::vector` indirectly manages dynamic memory for storing ingredients and recipes. Vectors handle memory allocation and deallocation automatically when elements are added or removed.
 
 ---
 
-### **5. Installation and Setup**
+### Error Handling
 
-Step-by-step instructions to set up the project locally:
-1. Clone the repository: `git clone https://github.com/ayayasminebelloum/CompProgramming-2-Project.git`
-2. Navigate to the project directory.
-3. Install dependencies, if any (mention if specific packages are needed).
-4. Compile the project: `g++ -fopenmp main.cpp -o recipe_manager`.
-
----
-
-### **6. Usage**
-
-How to use the program:
-- How to run the program: `./recipe_manager`
-- Command-line options or interactive prompts.
-- Example commands and outputs (e.g., how to add a recipe, view a recipe, etc.).
+- **File Access Errors**: Handled for file opening failures.
+- **User Input Validation**: For ingredient quantities and storage locations.
+- **Ingredient Availability**: Ensures that missing ingredients are reported when generating recipes.
+- **Data Integrity**: Prevents duplicate entries for ingredients by updating quantities when needed.
+- **Potential JSON Parsing Errors**: Currently unhandled but can be improved by catching `json::parse_error`.
 
 ---
 
-### **7. Code Structure**
-
-Describe the overall structure of the code:
-- Main modules or files (e.g., `recipe.h`, `recipe.cpp`, `main.cpp`).
-- What each module does (e.g., `Recipe class` handles recipe data, `FileManager` handles reading/writing JSON).
-  
-Provide a sample of important code snippets for better understanding.
-
----
-
-### **8. Memory Management**
-
-Explain your approach to memory management:
-- Dynamic memory usage (if applicable).
-- How memory is allocated and freed efficiently.
-- Use of smart pointers or manual memory management in C++.
-
----
-
-### **9. Error Handling**
-
-Detail how the project handles errors:
-- How exceptions or errors are handled for various cases (e.g., invalid recipe data, file reading/writing issues).
-- Any try-catch blocks or custom error messages.
-  
----
-
-### **10. Optimization Techniques**
-
-Explain the optimization techniques used:
-- How OpenMP is leveraged for parallel processing.
-- Best practices followed in terms of code efficiency and memory usage.
-- Any algorithmic improvements (e.g., sorting, searching optimizations).
-
----
-
-### **11. Testing**
+### Testing
 
 Describe your testing process:
 - How did you ensure the code works as expected?
@@ -124,39 +138,95 @@ Describe your testing process:
 
 ---
 
-### **12. Version Control**
+### Version Control
 
-Explain how you used GitHub for tracking:
-- Link to the GitHub repository.
-- Branching strategy (if used).
-- Commit frequency and documentation (how commits reflect changes).
+The GitHub repository has basic protection rules, where non of the member (including the owner of the repository) are able to push or commit a file without another member approving the request. the project division and workloads could be tracked with numerous commits marking important development stages, such as adding core features and error handling. Branching is utilized for making pull requests to commit new files/changes etc...
 
 ---
 
-### **13. Future Enhancements**
+### Future Enhancements
 
 Mention any features or improvements that could be added:
 - Adding a UI for better user interaction.
-- Expanding recipe categories.
-- Optimizing further for performance and scalability.
+- Expanding recipe categories to include cuisuines where the user could choose from.
+- Adding a grocery list: when the user gets a notification that an item is running low or expiring soon, he can add the item to this list and he then can later access this list when doing grocery shopping.
 
 ---
 
-### **14. Contributors**
+### Contributors
 
-List the contributors to the project, including any collaborative efforts or individual roles:
-- Yasmine Belloum – Lead Developer.
+Here’s a detailed list of all classes, functions, and JSON files used in our program and who did each.
+
+#### **Classes and Functions Developed:**
+
+##### **Class: Ingredient** 
+Done by India except `setExpirationDate` which was done by Aya
+- **Functions:**
+  1. `Ingredient(std::string n, int q, std::string exp = "")`
+  2. `std::string getName() const`
+  3. `int getQuantity() const`
+  4. `std::string getExpirationDate() const`
+  5. `void setQuantity(int q)`
+  6. `void setExpirationDate(const std::string& expDate)`
+  7. `json toJSON() const`
+  8. `static Ingredient fromJSON(const json& j)`
+
+##### **Class: Storage**
+Done by India
+- **Functions:**
+  1. `void addIngredient(const Ingredient& ingredient)`
+  2. `const std::vector<Ingredient>& getIngredients() const`
+  3. `json toJSON() const`
+  4. `void fromJSON(const json& j)`
+
+##### **Class: Fridge (inherits Storage)**
+Done by India except `expiringSoon` which was done by Aya
+- **Functions:**
+  1. `void addIngredient(const Ingredient& ingredient) override`
+  2. `void expiringSoon() const`
+
+##### **Class: Pantry (inherits Storage)**
+Done by India except `runningLow` which was done by Aya
+- **Functions:**
+  1. `void addIngredient(const Ingredient& ingredient) override`
+  2. `void runningLow() const`
+
+##### **Class: Recipe**
+Done by India and syntax problems were fixed by makenna
+- **Functions:**
+  1. `Recipe(std::string name, std::vector<std::pair<std::string, std::string>> ingredients, std::vector<std::pair<std::string, std::string>> condiments, std::vector<std::string> steps, std::string type)`
+  2. `std::string getRecipeName() const`
+  3. `std::string getType() const`
+  4. `bool canMakeRecipe(const std::vector<Ingredient>& userIngredients, std::vector<std::string>& missingIngredients) const`
+  5. `std::vector<std::pair<std::string, std::string>> getRequiredIngredients() const`
+  6. `std::vector<std::pair<std::string, std::string>> getCondiments() const`
+  7. `std::vector<std::string> getSteps() const`
+
+##### **Class: RecipeManager**
+Done by India except `menu` and `viewRecipeHistory` which were done by Aya
+- **Functions:**
+  1. `RecipeManager(const std::string& recipeFilename)`
+  2. `void loadIngredientsFromFile(const std::string& filename)`
+  3. `void collectIngredients()`
+  4. `void matchRecipes()`
+  5. `void displayFullRecipe(const Recipe& recipe)`
+  6. `void saveIngredientsToFile(const std::string& filename)`
+  7. `void menu()`
+  8. `void viewRecipeHistory()`
 
 ---
 
-### **15. License**
+#### **JSON Files Developed:**
 
-State the project’s license (if applicable, e.g., MIT, GPL).
+1. **`storage.json`**  Done By India
+   - Stores the list of ingredients in both the fridge and pantry, along with quantities and expiration dates where applicable.
 
----
+2. **`recipes.json`**  Done By India
+   - Contains all recipes, including ingredients, condiments, preparation steps, and categories.
 
-**Additional Notes**:  
-- Tailor sections to your specific project details, especially regarding **Error Handling**, **Optimization**, and **Memory Management**.
-- Include images, diagrams, or tables where necessary to enhance the understanding of the structure or flow of your program.
+3. **`history.json`**  Done By Aya
+   - Tracks the history of recipes that have been made, recording the name of the recipe and the date it was prepared.
 
-Let me know if you'd like to proceed with writing the actual README based on this structure!
+#### **Testing:**
+##### **Unit Testing** 
+Done By Makenna
