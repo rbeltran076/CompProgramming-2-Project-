@@ -131,10 +131,50 @@ The Recipe Manager efficiently manages memory by utilizing contemporary C++ tech
 
 ### Testing
 
-Describe your testing process:
-- How did you ensure the code works as expected?
-- Types of tests (unit tests, integration tests).
-- Sample test cases used.
+We used Google Tests to ensure expected functionality. Unit tests are written for each class (Ingredient, Storage, Fridge, Pantry, Recipe, and RecipeManager) to verify that they work in isolation.
+
+### Testing Setup
+
+To run the Google Tests properly, we created separate `.h` (header) and `.cpp` (implementation) files for each class. This ensures modularity and allows each class to be tested in isolation.
+
+The following files were created:
+
+- **Ingredient.h** and **Ingredient.cpp**: Defines and implements the `Ingredient` class.
+- **Storage.h** and **Storage.cpp**: Defines and implements the `Storage` class.
+- **Fridge.h** and **Fridge.cpp**: Defines and implements the `Fridge` class.
+- **Pantry.h** and **Pantry.cpp**: Defines and implements the `Pantry` class.
+- **Recipe.h** and **Recipe.cpp**: Defines and implements the `Recipe` class.
+- **RecipeManager.h** and **RecipeManager.cpp**: Defines and implements the `RecipeManager` class.
+
+These files allow us to maintain a clean project structure and make it easier to write and manage the tests for each class. Here's an example of how the structure looks:
+
+
+#### Test Coverage
+
+We aimed to cover the key functionalities of the program, including:
+
+Ingredient Class:
+- Verifying correct initialization of ingredients.
+- Checking if quantities and expiration dates are properly set and updated.
+
+Storage Class:
+- Ensuring that ingredients are correctly added and updated in the fridge and pantry.
+- Testing conversions to and from JSON for storing and retrieving ingredients.
+
+Fridge Class:
+- Testing the expiringSoon feature to ensure users are notified when items are about to expire.
+
+Pantry Class:
+- Testing the runningLow feature to ensure users are notified when stock levels are low.
+
+Recipe Class:
+- Verifying that recipes can be matched correctly based on available ingredients.
+- Ensuring that missing ingredients are accurately identified.
+
+RecipeManager Class:
+- Ensuring that the system correctly handles ingredient collection, recipe matching, and notifications for low stock and expiring items.
+- Verifying that recipe history is recorded accurately.
+
 
 ---
 
@@ -192,7 +232,7 @@ Done by India except `runningLow` which was done by Aya
   2. `void runningLow() const`
 
 ##### **Class: Recipe**
-Done by India and syntax problems were fixed by makenna
+Done by India and syntax problems were fixed by Makenna
 - **Functions:**
   1. `Recipe(std::string name, std::vector<std::pair<std::string, std::string>> ingredients, std::vector<std::pair<std::string, std::string>> condiments, std::vector<std::string> steps, std::string type)`
   2. `std::string getRecipeName() const`
