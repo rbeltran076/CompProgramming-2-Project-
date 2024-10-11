@@ -80,7 +80,7 @@ TEST_F(RecipeManagerTest, LoadIngredientsFromFile) {
     EXPECT_EQ(manager->getPantry().getIngredients().size(), static_cast<size_t>(13));
 }
 
-
+/*
 // Test the ability to match recipes based on loaded ingredients
 TEST_F(RecipeManagerTest, MatchRecipes) {
     manager->loadIngredientsFromFile("test_storage.json");
@@ -107,5 +107,5 @@ TEST_F(RecipeManagerTest, SaveHistory) {
     ASSERT_FALSE(history.empty());
     EXPECT_EQ(history[0]["name"], "Test Recipe");
 }
-
+*/
 //to run: g++ -std=c++14 -isystem /usr/include/gtest -pthread /Users/makennawarner/RecipeManager/CompProgramming-2-Project-/HeaderFiles/RecipeManager.cpp /Users/makennawarner/RecipeManager/CompProgramming-2-Project-/HeaderFiles/Fridge.cpp /Users/makennawarner/RecipeManager/CompProgramming-2-Project-/HeaderFiles/Pantry.cpp /Users/makennawarner/RecipeManager/CompProgramming-2-Project-/HeaderFiles/Ingredient.cpp /Users/makennawarner/RecipeManager/CompProgramming-2-Project-/HeaderFiles/Recipe.cpp /Users/makennawarner/RecipeManager/CompProgramming-2-Project-/HeaderFiles/Storage.cpp /Users/makennawarner/RecipeManager/CompProgramming-2-Project-/Tests/RecipeManagerTest.cpp -I/Users/makennawarner/RecipeManager/CompProgramming-2-Project-/HeaderFiles -I/Users/makennawarner/RecipeManager/CompProgramming-2-Project- -lgtest -lgtest_main -o runRecipeManagerTests

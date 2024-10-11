@@ -5,6 +5,7 @@
 #include <fstream>
 #include <ctime> // for date functionality
 #include <algorithm>
+#include <sstream>
 
 using json = nlohmann::json;
 using namespace std;
@@ -73,6 +74,7 @@ public:
     }
 };
 
+
 class Fridge : public Storage {
 public:
     void addIngredient(const Ingredient& ingredient) override {
@@ -97,6 +99,49 @@ public:
         }
     }
 };
+
+
+
+
+
+
+// THIS IS HOW TO RUN THIS CLASS ON A WINDOWS COMPUTER
+/*
+class Fridge : public Storage {
+public:
+    void addIngredient(const Ingredient& ingredient) override {
+        Storage::addIngredient(ingredient);
+        std::cout << ingredient.getName() << " added to Fridge.\n";
+    }
+
+    void expiringSoon() const {
+        time_t now= time(0);
+        tm *ltm= localtime(&now);
+
+        for (const auto& ingredient : ingredients) {
+            if (!ingredient.getExpirationDate().empty()) {
+                tm exp= {};
+                std::istringstream ss(ingredient.getExpirationDate());
+                ss >> std::get_time(&exp, "%Y-%m-%d");
+
+                if (ss.fail()) {
+                    std::cerr << "Failed to parse date for ingredients: " << ingredient.getName() << " \n";
+                    continue;
+                }
+
+                time_t exp_time = mktime(&exp);
+
+                if (difftime(exp_time, now) <= 5*24*60*60) {
+                    std::cout << ingredient.getName() << " is expiring in less than 5 days.\n";
+                }
+            }
+        }
+    }
+};
+
+
+*/
+
 
 class Pantry : public Storage {
 public:
