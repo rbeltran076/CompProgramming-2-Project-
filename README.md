@@ -61,6 +61,22 @@ To install and run the Recipe Manager locally:
    ```bash
    ./finalcode
    ```
+To test each class locally:
+
+1. Complete steps 1-2 above.
+
+2. Compile the program using the test code found in the "Tests" folder. (E.g. `IngredientTest.cpp`)
+```bash
+g++ -std=c++14 -isystem /path/to/gtest/include -pthread /path/to/project/HeaderFiles/Ingredient.cpp /path/to/project/Tests/IngredientTest.cpp -I/path/to/project/HeaderFiles -I/path/to/project/ -lgtest -lgtest_main -o runTests
+```
+3. Ensure you are compiling all the files that code needs to access. (E.g. `IngredientTest.cpp` must compile `Ingredient.cpp`, `IngredientTest.cpp`, the include path for the header files, and the include path for the root directory)
+
+4. Run the program:
+   ```bash
+   ./runTests
+   ```
+
+
 
 ---
 
