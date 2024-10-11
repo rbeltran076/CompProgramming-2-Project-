@@ -131,7 +131,7 @@ The Recipe Manager efficiently manages memory by utilizing contemporary C++ tech
 
 ### Testing
 
-We used Google Tests to ensure expected functionality. Unit tests are written for each class (Ingredient, Storage, Fridge, Pantry, Recipe, and RecipeManager) to verify that they work in isolation.
+We used Google Tests to ensure expected functionality. Unit tests are written for each class (Ingredient, Storage, Fridge, Pantry, Recipe, and RecipeManager) to verify that they work in isolation. Integration Testing was conducted to ensure correct integration of the json databases into the program. 
 
 ### Testing Setup
 
@@ -173,20 +173,23 @@ RecipeManager Class:
 - Ensuring that the system correctly handles ingredient collection, recipe matching, and notifications for low stock and expiring items.
 - Verifying that recipe history is recorded accurately.
 
-
+.Json File Integrations 
+- Ensuring that all json files were loaded with the proper data, the data then processed correctly to ensure no errors occur while matching ingredients to recipes, and then the correct information relayed back to users. 
+- Basic tests to cover different perspectives of how json files are used within this program. 
 ---
 
 ### Version Control
 
-The GitHub repository has basic protection rules, where non of the member (including the owner of the repository) are able to push or commit a file without another member approving the request. the project division and workloads could be tracked with numerous commits marking important development stages, such as adding core features and error handling. Branching is utilized for making pull requests to commit new files/changes etc...
+The GitHub repository has basic protection rules, where none of the member (including the owner of the repository) are able to push or commit a file without another member approving the request. the project division and workloads could be tracked with numerous commits marking important development stages, such as adding core features and error handling. Branching is utilized for making pull requests to commit new files/changes etc...
 
 ---
 
 ### Future Enhancements
 
 Mention any features or improvements that could be added:
-- Adding a UI for better user interaction.
-- Expanding recipe categories to include cuisuines where the user could choose from.
+- Integrating a QT UI for better user interaction.
+- Organization of the code into directories, introduction of a CMakeLists.txt file.
+- Expanding recipe categories to include cuisines where the user could choose from.
 - Adding a grocery list: when the user gets a notification that an item is running low or expiring soon, he can add the item to this list and he then can later access this list when doing grocery shopping.
 
 ---
@@ -218,7 +221,7 @@ Done by India
   4. `void fromJSON(const json& j)`
 
 ##### **Class: Fridge (inherits Storage)**
-Done by India except `expiringSoon` which was done by Aya
+Done by India except `expiringSoon` which was done by Aya. Updates for Windows Computers done by Anna. 
 - **Functions:**
   1. `void addIngredient(const Ingredient& ingredient) override`
   2. `void expiringSoon() const`
@@ -265,6 +268,10 @@ Done by India except `menu` and `viewRecipeHistory` which were done by Aya
 3. **`history.json`**  Done By Aya
    - Tracks the history of recipes that have been made, recording the name of the recipe and the date it was prepared.
 
-#### **Testing:**
+#### **Integration Testing:**   
+Done by Anna 
+  - Tests all perspectives of the integration of the json files as our databases, ensuring all information is processed and stored properly. 
+  - Changes to other files/classes done in accordance. 
+
 ##### **Unit Testing** 
 Done By Makenna

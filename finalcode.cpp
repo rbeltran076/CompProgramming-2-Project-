@@ -5,6 +5,7 @@
 #include <fstream>
 #include <ctime> // for date functionality
 #include <algorithm>
+#include <sstream>
 
 using json = nlohmann::json;
 using namespace std;
@@ -103,9 +104,9 @@ public:
 
 
 
-/*
-// THIS IS HOW TO RUN THIS CLASS ON A WINDOWS COMPUTER
 
+// THIS IS HOW TO RUN THIS CLASS ON A WINDOWS COMPUTER
+/*
 class Fridge : public Storage {
 public:
     void addIngredient(const Ingredient& ingredient) override {
@@ -138,8 +139,8 @@ public:
     }
 };
 
- */
 
+*/
 
 
 class Pantry : public Storage {

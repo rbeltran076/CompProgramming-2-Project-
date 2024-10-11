@@ -18,6 +18,7 @@ void RecipeManager::saveHistory(const Recipe& recipe) {
         history = json::array();
     }
 
+
     json j;
     j["name"] = recipe.getRecipeName();
     time_t now = time(0);

@@ -35,14 +35,14 @@ void Fridge::expiringSoon() const {
 }
 
 
-
+/*
 
 
 
 // HOW TO RUN THIS CLASS ON A WINDOWS COMPUTER -- strptime() doesn't work on windows.
 
 
-/*
+
 void Fridge::addIngredient(const Ingredient& ingredient) {
     Storage::addIngredient(ingredient);
     std::cout << ingredient.getName() << " added to Fridge.\n";
