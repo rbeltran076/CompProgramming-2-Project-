@@ -27,7 +27,7 @@ The main features of our program consist of:
 
 - **Management of Ingredients:** the program keeps track of ingredients stored in either the fridge or the pantry, it monitors their quantities, and remembers expiration dates for perishable items.
 
-- **Recipe Suggestions:** the program also provides a way to recommend recipes utilizing the ingredients on hand, while notifying about any missing ingredients if a recipe is chosen by the user.
+- **Recipe Suggestions:** the program also provides recommended recipes utilizing the ingredients on hand, while notifying about any missing ingredients within a chosen recipe.
 
 - **JSON-based storage:** To retrieve and store ingredient and recipe information, the program loads and saves these items in JSON format, facilitating access and making it easy to expand if the ingredients saved are a huge number.
 
@@ -35,7 +35,7 @@ The main features of our program consist of:
 
 - **Low-Stock Notifications:** The pantry keeps track of ingredient quantities and alerts the users when supplies are running low.
 
-- **Recipe History:** This feature adds previously made recipes by the users, and stores them with a access date to indicate the date the recipe was made.
+- **Recipe History:** This feature stores previously made recipes by the users, along with their access date to indicate when the recipe was made.
 
 
 ---
@@ -180,7 +180,7 @@ RecipeManager Class:
 
 ### Version Control
 
-The GitHub repository has basic protection rules, where none of the member (including the owner of the repository) are able to push or commit a file without another member approving the request. the project division and workloads could be tracked with numerous commits marking important development stages, such as adding core features and error handling. Branching is utilized for making pull requests to commit new files/changes etc...
+The GitHub repository has basic protection rules, where none of the member (including the owner of the repository) are able to push or commit a file without another member approving the request. No contributer could perform a hard push either. The project division and workloads could be tracked with numerous commits from different branches marking important development stages, such as adding core features and error handling. Branching is utilized for making pull requests to commit new files/changes etc...
 
 ---
 
@@ -189,6 +189,7 @@ The GitHub repository has basic protection rules, where none of the member (incl
 Mention any features or improvements that could be added:
 - Integrating a QT UI for better user interaction.
 - Organization of the code into directories, introduction of a CMakeLists.txt file.
+- Use of CMake to allow for easier compilation on multiple platforms (Windows, macOS, Linux) and easier scaling for a larger, more complex system.
 - Expanding recipe categories to include cuisines where the user could choose from.
 - Adding a grocery list: when the user gets a notification that an item is running low or expiring soon, he can add the item to this list and he then can later access this list when doing grocery shopping.
 
