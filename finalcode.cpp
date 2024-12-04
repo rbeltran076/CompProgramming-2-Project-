@@ -75,38 +75,34 @@ public:
 };
 
 
-class Fridge : public Storage {
-public:
-    void addIngredient(const Ingredient& ingredient) override {
-        Storage::addIngredient(ingredient);
-        std::cout << ingredient.getName() << " added to Fridge.\n";
-    }
+// class Fridge : public Storage {
+// public:
+//     void addIngredient(const Ingredient& ingredient) override {
+//         Storage::addIngredient(ingredient);
+//         std::cout << ingredient.getName() << " added to Fridge.\n";
+//     }
 
-    void expiringSoon() const {
-        time_t now = time(0);
-        tm *ltm = localtime(&now);
+//     void expiringSoon() const {
+//         time_t now = time(0);
+//         tm *ltm = localtime(&now);
 
-        for (const auto& ingredient : ingredients) {
-            if (!ingredient.getExpirationDate().empty()) {
-                tm exp = {};
-                strptime(ingredient.getExpirationDate().c_str(), "%Y-%m-%d", &exp);
-                time_t exp_time = mktime(&exp);
+//         for (const auto& ingredient : ingredients) {
+//             if (!ingredient.getExpirationDate().empty()) {
+//                 tm exp = {};
+//                 strptime(ingredient.getExpirationDate().c_str(), "%Y-%m-%d", &exp);
+//                 time_t exp_time = mktime(&exp);
 
-                if (difftime(exp_time, now) <= 5 * 24 * 60 * 60) {
-                    std::cout << ingredient.getName() << " is expiring in less than 5 days.\n";
-                }
-            }
-        }
-    }
-};
-
-
-
+//                 if (difftime(exp_time, now) <= 5 * 24 * 60 * 60) {
+//                     std::cout << ingredient.getName() << " is expiring in less than 5 days.\n";
+//                 }
+//             }
+//         }
+//     }
+// };
 
 
 
 // THIS IS HOW TO RUN THIS CLASS ON A WINDOWS COMPUTER
-/*
 class Fridge : public Storage {
 public:
     void addIngredient(const Ingredient& ingredient) override {
@@ -139,8 +135,6 @@ public:
     }
 };
 
-
-*/
 
 
 class Pantry : public Storage {
